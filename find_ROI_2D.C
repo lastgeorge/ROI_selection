@@ -139,8 +139,8 @@ void find_ROI_2D(Int_t run = 3455){
   TH1F *htemp = new TH1F("htemp","htemp",ntime,0,ntime);
   Int_t nchannels = hdecon_u->GetNbinsX();
   
-  Double_t factor = 3.0;
-  Double_t factor1 = 0.66;
+  Double_t factor = 3.5;
+  Double_t factor1 = 0.7;
   Double_t max_th = 10000;
   
   s_plane = 0;
@@ -394,8 +394,8 @@ void find_ROI_2D(Int_t run = 3455){
 
 
   s_plane = 2;
-  factor = 5;
-  factor1 = 0.7;
+  factor = 6;
+  factor1 = 0.8;
 
   nchannels = hdecon_w->GetNbinsX();
   for (Int_t i=0;i!=nchannels;i++){

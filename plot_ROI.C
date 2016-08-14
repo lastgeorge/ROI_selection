@@ -33,8 +33,8 @@ void restore_baseline(TH1F *htemp){
 
 void plot_ROI(){
   
-  Int_t plane = 1;
-  //Int_t run = 3493;
+  Int_t plane = 0;
+  //  Int_t run = 3493;
   Int_t run = 5366;
   Int_t wire_bin_min; 
   Int_t wire_bin_max; 
@@ -42,6 +42,9 @@ void plot_ROI(){
   Int_t time_bin_max; 
   wire_bin_min = 1170; 
   wire_bin_max = 1300;
+
+  // wire_bin_min = 3850-2400; 
+  // wire_bin_max = 3930-2400;
   time_bin_min = 6200;
   time_bin_max = 7800;
 
