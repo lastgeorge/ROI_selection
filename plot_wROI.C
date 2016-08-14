@@ -1,23 +1,24 @@
-void plot_wROI(){
+void plot_wROI(Int_t run=3493){
   Int_t plane = 0;
   //Int_t run = 3493;
-  Int_t run = 5366;
+  //  Int_t run = 5366;
   Int_t wire_bin_min; 
   Int_t wire_bin_max; 
   Int_t time_bin_min; 
   Int_t time_bin_max; 
-  // wire_bin_min = 1170; 
-  // wire_bin_max = 1300;
-
-  // // wire_bin_min = 3850-2400; 
-  // // wire_bin_max = 3930-2400;
-  // time_bin_min = 6200;
-  // time_bin_max = 7800;
-
-  wire_bin_min = 1220; 
-  wire_bin_max = 1350;
-  time_bin_min = 6300;
-  time_bin_max = 7500;
+  if (run == 3493){
+    wire_bin_min = 1170; 
+    wire_bin_max = 1300;
+    // wire_bin_min = 3850-2400; 
+    // wire_bin_max = 3930-2400;
+    time_bin_min = 6200;
+    time_bin_max = 7800;
+  }else if (run==5366){
+    wire_bin_min = 1220; 
+    wire_bin_max = 1350;
+    time_bin_min = 6300;
+    time_bin_max = 7500;
+  }
 
   Double_t factor1 = 6;
   time_bin_min /= factor1;
@@ -69,11 +70,12 @@ void plot_wROI(){
 	  
 
 	  if (j >= time_bin_min && j<= time_bin_max){
-	    hdecon1->SetBinContent(s_channel-wire_bin_min+1,j-time_bin_min+1,
-				   content);
+	    if (content > 3000)
+	      hdecon1->SetBinContent(s_channel-wire_bin_min+1,j-time_bin_min+1,
+				     content);
 	    if (s_channel == wire_bin_min + special_channel){
 	      hwave2->SetBinContent(j-time_bin_min+1,content);
-	      std::cout << s_begin-time_bin_min << " " << s_end-time_bin_min << " " << content_current << " " << content << endl;
+	      // std::cout << s_begin-time_bin_min << " " << s_end-time_bin_min << " " << content_current << " " << content << endl;
 	    }
 	  }
 	  

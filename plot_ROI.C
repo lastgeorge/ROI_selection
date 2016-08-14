@@ -31,29 +31,30 @@ void restore_baseline(TH1F *htemp){
 
 
 
-void plot_ROI(){
+void plot_ROI(Int_t run=3493){
   
   Int_t plane = 0;
   //Int_t run = 3493;
-  Int_t run = 5366;
+  //  Int_t run = 5366;
   Int_t wire_bin_min; 
   Int_t wire_bin_max; 
   Int_t time_bin_min; 
   Int_t time_bin_max; 
-  // wire_bin_min = 1170; 
-  // wire_bin_max = 1300;
-
-  // // wire_bin_min = 3850-2400; 
-  // // wire_bin_max = 3930-2400;
-  // time_bin_min = 6200;
-  // time_bin_max = 7800;
-
-  wire_bin_min = 1220; 
-  wire_bin_max = 1350;
-  time_bin_min = 6300;
-  time_bin_max = 7500;
+  if (run == 3493){
+    wire_bin_min = 1170; 
+    wire_bin_max = 1300;
+    // wire_bin_min = 3850-2400; 
+    // wire_bin_max = 3930-2400;
+    time_bin_min = 6200;
+    time_bin_max = 7800;
+  }else if (run == 5366){
+    wire_bin_min = 1220; 
+    wire_bin_max = 1350;
+    time_bin_min = 6300;
+    time_bin_max = 7500;
+  }
   
-  TFile *file = new TFile(Form("%d_2D_lf_all_45.root",run));
+  TFile *file = new TFile(Form("%d_2D_lf_all_25.root",run));
 
   TH2F *hdecon;
   TH2F *hdecon1;
