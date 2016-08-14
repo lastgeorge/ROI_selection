@@ -147,6 +147,7 @@ void find_ROI_2D(Int_t run = 3455){
   for (Int_t i=0;i!=nchannels;i++){
     //for (Int_t i=1197;i!=1198;i++){
   // for (Int_t i=1273;i!=1274;i++){
+  //for (Int_t i=1248;i!=1249;i++){
     s_channel = i;
 
     if (i%100 ==0)
@@ -219,6 +220,7 @@ void find_ROI_2D(Int_t run = 3455){
 	      max_bin = k;
 	    }
 	  }
+	  
 	  
 	  
 	  if (content * 2> htemp->GetBinContent(begin+1) + th 
@@ -295,36 +297,36 @@ void find_ROI_2D(Int_t run = 3455){
       	begin = find_ROI_begin(htemp,j, th*factor1) ;
       	Int_t end;
       	end = find_ROI_end(htemp,j, th*factor1) ;
-	Int_t max_bin = begin;
-	for (Int_t k=begin;k<=end;k++){
-	  if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
-	    max_bin = k;
-	  }
-	}
+  	Int_t max_bin = begin;
+  	for (Int_t k=begin;k<=end;k++){
+  	  if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
+  	    max_bin = k;
+  	  }
+  	}
 	
       	if (ROIs_1.size()>0){
       	  if (begin < ROIs_1.back().second){
       	    ROIs_1.back().second = end;
-	    if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-	      max_bins.back() = max_bin;
-	  }else if (begin == ROIs_1.back().second){
-	    if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
-		htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
-	      ROIs_1.back().second = end;
-	      if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-	      max_bins.back() = max_bin;
-	    }else{
-	      ROIs_1.push_back(std::make_pair(begin,end));
-	      max_bins.push_back(max_bin);
-	    }
-	  }else{
+  	    if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  	      max_bins.back() = max_bin;
+  	  }else if (begin == ROIs_1.back().second){
+  	    if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
+  		htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
+  	      ROIs_1.back().second = end;
+  	      if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  	      max_bins.back() = max_bin;
+  	    }else{
+  	      ROIs_1.push_back(std::make_pair(begin,end));
+  	      max_bins.push_back(max_bin);
+  	    }
+  	  }else{
       	    ROIs_1.push_back(std::make_pair(begin,end));
-	    max_bins.push_back(max_bin);
-	  }
+  	    max_bins.push_back(max_bin);
+  	  }
       	  //    std::cout << begin << " " << end << endl;
       	}else{
       	  ROIs_1.push_back(std::make_pair(begin,end));
-	  max_bins.push_back(max_bin);
+  	  max_bins.push_back(max_bin);
       	}
 
       	if (end <htemp->GetNbinsX()){
@@ -333,53 +335,53 @@ void find_ROI_2D(Int_t run = 3455){
       	  j=htemp->GetNbinsX();
       	}
       }else{
-	if (content > htemp->GetBinContent(j) && content > htemp->GetBinContent(j+2) && j!=0 && j!=htemp->GetNbinsX()-1){
-	  Int_t begin;
-	  begin = find_ROI_begin(htemp,j, htemp->GetBinContent(j)) ;
-	  Int_t end;
-	  end = find_ROI_end(htemp,j, htemp->GetBinContent(j+2) ) ;
-	  Int_t max_bin = begin;
-	  for (Int_t k=begin;k<=end;k++){
-	    if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
-	      max_bin = k;
-	    }
-	  }
+  	if (content > htemp->GetBinContent(j) && content > htemp->GetBinContent(j+2) && j!=0 && j!=htemp->GetNbinsX()-1){
+  	  Int_t begin;
+  	  begin = find_ROI_begin(htemp,j, htemp->GetBinContent(j)) ;
+  	  Int_t end;
+  	  end = find_ROI_end(htemp,j, htemp->GetBinContent(j+2) ) ;
+  	  Int_t max_bin = begin;
+  	  for (Int_t k=begin;k<=end;k++){
+  	    if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
+  	      max_bin = k;
+  	    }
+  	  }
 	  
 	  
-	  if (content * 2> htemp->GetBinContent(begin+1) + th 
-	      +htemp->GetBinContent(end+1) + th){
-	    if (ROIs_1.size()>0){
-	      if (begin < ROIs_1.back().second){
-		ROIs_1.back().second = end;
-		if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-		  max_bins.back() = max_bin;
-	      }else if (begin == ROIs_1.back().second){
-		if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
-		    htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
-		  ROIs_1.back().second = end;
-		  if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-		    max_bins.back() = max_bin;
-		}else{
-		  ROIs_1.push_back(std::make_pair(begin,end));
-		  max_bins.push_back(max_bin);
-		}
-	      }else{
-		ROIs_1.push_back(std::make_pair(begin,end));
-		max_bins.push_back(max_bin);
-	      }
-	      //    std::cout << begin << " " << end << endl;
-	    }else{
-	      ROIs_1.push_back(std::make_pair(begin,end));
-	      max_bins.push_back(max_bin);
-	    }
+  	  if (content * 2> htemp->GetBinContent(begin+1) + th 
+  	      +htemp->GetBinContent(end+1) + th){
+  	    if (ROIs_1.size()>0){
+  	      if (begin < ROIs_1.back().second){
+  		ROIs_1.back().second = end;
+  		if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  		  max_bins.back() = max_bin;
+  	      }else if (begin == ROIs_1.back().second){
+  		if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
+  		    htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
+  		  ROIs_1.back().second = end;
+  		  if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  		    max_bins.back() = max_bin;
+  		}else{
+  		  ROIs_1.push_back(std::make_pair(begin,end));
+  		  max_bins.push_back(max_bin);
+  		}
+  	      }else{
+  		ROIs_1.push_back(std::make_pair(begin,end));
+  		max_bins.push_back(max_bin);
+  	      }
+  	      //    std::cout << begin << " " << end << endl;
+  	    }else{
+  	      ROIs_1.push_back(std::make_pair(begin,end));
+  	      max_bins.push_back(max_bin);
+  	    }
 	    
-	    if (end <htemp->GetNbinsX()){
-	      j = end;
-	    }else{
-	      j=htemp->GetNbinsX();
-	    }
-	  }
-	}
+  	    if (end <htemp->GetNbinsX()){
+  	      j = end;
+  	    }else{
+  	      j=htemp->GetNbinsX();
+  	    }
+  	  }
+  	}
       }
     }
     // sort out the ROI and save ... 
@@ -422,36 +424,36 @@ void find_ROI_2D(Int_t run = 3455){
       	begin = find_ROI_begin(htemp,j, th*factor1) ;
       	Int_t end;
       	end = find_ROI_end(htemp,j, th*factor1) ;
-	Int_t max_bin = begin;
-	for (Int_t k=begin;k<=end;k++){
-	  if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
-	    max_bin = k;
-	  }
-	}
+  	Int_t max_bin = begin;
+  	for (Int_t k=begin;k<=end;k++){
+  	  if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
+  	    max_bin = k;
+  	  }
+  	}
 	
       	if (ROIs_1.size()>0){
       	  if (begin < ROIs_1.back().second){
       	    ROIs_1.back().second = end;
-	    if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-	      max_bins.back() = max_bin;
-	  }else if (begin == ROIs_1.back().second){
-	    if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
-		htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
-	      ROIs_1.back().second = end;
-	      if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-	      max_bins.back() = max_bin;
-	    }else{
-	      ROIs_1.push_back(std::make_pair(begin,end));
-	      max_bins.push_back(max_bin);
-	    }
-	  }else{
+  	    if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  	      max_bins.back() = max_bin;
+  	  }else if (begin == ROIs_1.back().second){
+  	    if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
+  		htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
+  	      ROIs_1.back().second = end;
+  	      if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  	      max_bins.back() = max_bin;
+  	    }else{
+  	      ROIs_1.push_back(std::make_pair(begin,end));
+  	      max_bins.push_back(max_bin);
+  	    }
+  	  }else{
       	    ROIs_1.push_back(std::make_pair(begin,end));
-	    max_bins.push_back(max_bin);
-	  }
+  	    max_bins.push_back(max_bin);
+  	  }
       	  //    std::cout << begin << " " << end << endl;
       	}else{
       	  ROIs_1.push_back(std::make_pair(begin,end));
-	  max_bins.push_back(max_bin);
+  	  max_bins.push_back(max_bin);
       	}
 
       	if (end <htemp->GetNbinsX()){
@@ -460,53 +462,53 @@ void find_ROI_2D(Int_t run = 3455){
       	  j=htemp->GetNbinsX();
       	}
       }else{
-	if (content > htemp->GetBinContent(j) && content > htemp->GetBinContent(j+2) && j!=0 && j!=htemp->GetNbinsX()-1){
-	  Int_t begin;
-	  begin = find_ROI_begin(htemp,j, htemp->GetBinContent(j)) ;
-	  Int_t end;
-	  end = find_ROI_end(htemp,j, htemp->GetBinContent(j+2) ) ;
-	  Int_t max_bin = begin;
-	  for (Int_t k=begin;k<=end;k++){
-	    if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
-	      max_bin = k;
-	    }
-	  }
+  	if (content > htemp->GetBinContent(j) && content > htemp->GetBinContent(j+2) && j!=0 && j!=htemp->GetNbinsX()-1){
+  	  Int_t begin;
+  	  begin = find_ROI_begin(htemp,j, htemp->GetBinContent(j)) ;
+  	  Int_t end;
+  	  end = find_ROI_end(htemp,j, htemp->GetBinContent(j+2) ) ;
+  	  Int_t max_bin = begin;
+  	  for (Int_t k=begin;k<=end;k++){
+  	    if (htemp->GetBinContent(k+1) > htemp->GetBinContent(max_bin+1)){
+  	      max_bin = k;
+  	    }
+  	  }
 	  
 	  
-	  if (content * 2> htemp->GetBinContent(begin+1) + th 
-	      +htemp->GetBinContent(end+1) + th){
-	    if (ROIs_1.size()>0){
-	      if (begin < ROIs_1.back().second){
-		ROIs_1.back().second = end;
-		if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-		  max_bins.back() = max_bin;
-	      }else if (begin == ROIs_1.back().second){
-		if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
-		    htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
-		  ROIs_1.back().second = end;
-		  if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
-		    max_bins.back() = max_bin;
-		}else{
-		  ROIs_1.push_back(std::make_pair(begin,end));
-		  max_bins.push_back(max_bin);
-		}
-	      }else{
-		ROIs_1.push_back(std::make_pair(begin,end));
-		max_bins.push_back(max_bin);
-	      }
-	      //    std::cout << begin << " " << end << endl;
-	    }else{
-	      ROIs_1.push_back(std::make_pair(begin,end));
-	      max_bins.push_back(max_bin);
-	    }
+  	  if (content * 2> htemp->GetBinContent(begin+1) + th 
+  	      +htemp->GetBinContent(end+1) + th){
+  	    if (ROIs_1.size()>0){
+  	      if (begin < ROIs_1.back().second){
+  		ROIs_1.back().second = end;
+  		if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  		  max_bins.back() = max_bin;
+  	      }else if (begin == ROIs_1.back().second){
+  		if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) < th *factor1 ||
+  		    htemp->GetBinContent(max_bins.back()+1) - htemp->GetBinContent(begin+1) < th *factor1){
+  		  ROIs_1.back().second = end;
+  		  if (htemp->GetBinContent(max_bin+1) > htemp->GetBinContent(max_bins.back()+1))
+  		    max_bins.back() = max_bin;
+  		}else{
+  		  ROIs_1.push_back(std::make_pair(begin,end));
+  		  max_bins.push_back(max_bin);
+  		}
+  	      }else{
+  		ROIs_1.push_back(std::make_pair(begin,end));
+  		max_bins.push_back(max_bin);
+  	      }
+  	      //    std::cout << begin << " " << end << endl;
+  	    }else{
+  	      ROIs_1.push_back(std::make_pair(begin,end));
+  	      max_bins.push_back(max_bin);
+  	    }
 	    
-	    if (end <htemp->GetNbinsX()){
-	      j = end;
-	    }else{
-	      j=htemp->GetNbinsX();
-	    }
-	  }
-	}
+  	    if (end <htemp->GetNbinsX()){
+  	      j = end;
+  	    }else{
+  	      j=htemp->GetNbinsX();
+  	    }
+  	  }
+  	}
       }
     }
     // sort out the ROI and save ... 
