@@ -34,15 +34,15 @@ void plot(){
   graw->Fit("pol0","","",3000,4000);
   graw->Fit("pol0","","",5000,8000);
 
-  g1D->Draw("*same");
-  g1D->Fit("pol0","","",3000,4000);
-  g1D->Fit("pol0","","",5000,8000);
-  g2D_lf_25->Draw("*same");
-  g2D_lf_25->Fit("pol0","","",3000,4000);
-  g2D_lf_25->Fit("pol0","","",5000,8000);
-  g2D_lf_45->Draw("*same");
-  g2D_lf_45->Fit("pol0","","",3000,4000);
-  g2D_lf_45->Fit("pol0","","",5000,8000);
+  // g1D->Draw("*same");
+  // g1D->Fit("pol0","","",3000,4000);
+  // g1D->Fit("pol0","","",5000,8000);
+  // g2D_lf_25->Draw("*same");
+  // g2D_lf_25->Fit("pol0","","",3000,4000);
+  // g2D_lf_25->Fit("pol0","","",5000,8000);
+  // g2D_lf_45->Draw("*same");
+  // g2D_lf_45->Fit("pol0","","",3000,4000);
+  // g2D_lf_45->Fit("pol0","","",5000,8000);
 
   graw->SetMarkerStyle(20);
   g1D->SetMarkerStyle(20);

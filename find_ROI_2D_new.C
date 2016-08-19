@@ -137,7 +137,6 @@ void find_ROI_2D_new(Int_t run = 3455){
   TH1F *htemp = new TH1F("htemp","htemp",ntime,0,ntime);
   Int_t nchannels = hdecon_u->GetNbinsX();
   
-
   // some example thresholds
   Double_t factor = 3.5; // regular threshold
   Double_t max_th = 10000; // maximum threshold
@@ -145,6 +144,9 @@ void find_ROI_2D_new(Int_t run = 3455){
   Int_t short_length = 3; // short length
   Double_t fixed_threshold = 4000;
   
+  
+
+
   s_plane = 0;
   for (Int_t i=0;i!=nchannels;i++){
     //for (Int_t i=1282;i!=1283;i++){
@@ -197,7 +199,7 @@ void find_ROI_2D_new(Int_t run = 3455){
 	  
 	  // if the difference is big enough
 	  if (htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(begin+1) +
-	      htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(end+1) > th*2*factor1){
+	      htemp->GetBinContent(max_bin+1) - htemp->GetBinContent(end+1) > th*2){
 	    flag_ROI = 1;
 	  }
 
@@ -243,10 +245,10 @@ void find_ROI_2D_new(Int_t run = 3455){
     // // find the minimum between the two ROIs, draw a line, and evaluate the middle part, make sure everybody pass threshold ... 
     if (ROIs_1.size()==1){
     }else if (ROIs_1.size()>1){
-      Int_t flag_repeat = 1;
+      Int_t flag_repeat = 0;
       //  cout << "Xin1: " << ROIs_1.size() << endl;;
       while(flag_repeat){
-	flag_repeat = 0;
+	flag_repeat = 1;
 	for (Int_t k=0;k<ROIs_1.size()-1;k++){
 	  Int_t begin = ROIs_1.at(k).first;
 	  Int_t end = ROIs_1.at(k+1).second;
@@ -287,16 +289,17 @@ void find_ROI_2D_new(Int_t run = 3455){
       }
     }
     
-
     // sort out the ROI and save ... 
     for (auto it = ROIs_1.begin();it!=ROIs_1.end();it++){
       s_begin = it->first;
       s_end = it->second;
       //      cout << s_begin << " " << s_end << " " << th << " " << th *factor1 << endl;
       T->Fill();
-    }
-    
+    }    
   }
+
+
+
 
 
   htemp->Draw();
